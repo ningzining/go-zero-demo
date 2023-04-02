@@ -1,0 +1,44 @@
+type Request {
+	Name string `path:"name,options=you|me"`
+}
+
+type Response {
+	Message string `json:"message"`
+}
+type GetQrCodeReq {
+	DeviceId string `json:"deviceId"`
+}
+type GetQrCodeResp {
+	QrCode string `json:"qrCode"`
+}
+type ScanQrCodeReq {
+	QrCode string `json:"qrCode"`
+	UserId string `json:"userId"`
+}
+type ScanQrCodeResp {
+	Token string `json:"token"`
+}
+
+type ConfirmQrCodeReq {
+	QrCode string `json:"qrCode"`
+	Token  string `json:"token"`
+}
+type ConfirmQrCodeResp {
+}
+type CheckQrCodeReq {
+	QrCode string `path:"qrCode"`
+}
+type CheckQrCodeResp {
+}
+service greet-api {
+	@handler GreetHandler
+	get /from/:name(Request) returns (Response)
+	@handler GetQrCode // 获取二维码
+	get /qrcode/get(GetQrCodeReq) returns (GetQrCodeResp)
+	@handler ScanQrCode // 扫描二维码
+	post /qrcode/scan(ScanQrCodeReq) returns (ScanQrCodeResp)
+	@handler ConfirmQrCode // 确定登录
+	post /qrcode/confirm(ConfirmQrCodeReq) returns (ConfirmQrCodeResp)
+	@handler CheckQrCode // 长连接获取二维码状态
+	get /qrcode/check/:qrCode(CheckQrCodeReq) returns (CheckQrCodeResp)
+}
