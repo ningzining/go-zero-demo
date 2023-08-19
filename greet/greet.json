@@ -1,0 +1,275 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "",
+    "version": ""
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/hello": {
+      "get": {
+        "operationId": "Hello",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/HelloResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "greet-api"
+        ]
+      }
+    },
+    "/qrcode/check/{qrCode}": {
+      "get": {
+        "operationId": "CheckQrCode",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CheckQrCodeResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "qrCode",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "greet-api"
+        ]
+      }
+    },
+    "/qrcode/confirm": {
+      "post": {
+        "operationId": "ConfirmQrCode",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ConfirmQrCodeResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ConfirmQrCodeReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "greet-api"
+        ]
+      }
+    },
+    "/qrcode/get": {
+      "get": {
+        "operationId": "GetQrCode",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetQrCodeResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "greet-api"
+        ]
+      }
+    },
+    "/qrcode/scan": {
+      "post": {
+        "operationId": "ScanQrCode",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ScanQrCodeResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ScanQrCodeReq"
+            }
+          }
+        ],
+        "requestBody": {},
+        "tags": [
+          "greet-api"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "CheckQrCodeReq": {
+      "type": "object",
+      "properties": {
+        "qrCode": {
+          "type": "string"
+        }
+      },
+      "title": "CheckQrCodeReq",
+      "required": [
+        "qrCode"
+      ]
+    },
+    "CheckQrCodeResp": {
+      "type": "object",
+      "title": "CheckQrCodeResp"
+    },
+    "ConfirmQrCodeReq": {
+      "type": "object",
+      "properties": {
+        "qrCode": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        }
+      },
+      "title": "ConfirmQrCodeReq",
+      "required": [
+        "qrCode",
+        "token"
+      ]
+    },
+    "ConfirmQrCodeResp": {
+      "type": "object",
+      "title": "ConfirmQrCodeResp"
+    },
+    "GetQrCodeReq": {
+      "type": "object",
+      "properties": {
+        "deviceId": {
+          "type": "string"
+        }
+      },
+      "title": "GetQrCodeReq",
+      "required": [
+        "deviceId"
+      ]
+    },
+    "GetQrCodeResp": {
+      "type": "object",
+      "properties": {
+        "qrCode": {
+          "type": "string"
+        }
+      },
+      "title": "GetQrCodeResp",
+      "required": [
+        "qrCode"
+      ]
+    },
+    "HelloReq": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      },
+      "title": "HelloReq",
+      "required": [
+        "name"
+      ]
+    },
+    "HelloResp": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        }
+      },
+      "title": "HelloResp",
+      "required": [
+        "message"
+      ]
+    },
+    "ScanQrCodeReq": {
+      "type": "object",
+      "properties": {
+        "qrCode": {
+          "type": "string"
+        },
+        "userId": {
+          "type": "string"
+        }
+      },
+      "title": "ScanQrCodeReq",
+      "required": [
+        "qrCode",
+        "userId"
+      ]
+    },
+    "ScanQrCodeResp": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        }
+      },
+      "title": "ScanQrCodeResp",
+      "required": [
+        "token"
+      ]
+    }
+  },
+  "securityDefinitions": {
+    "apiKey": {
+      "type": "apiKey",
+      "description": "Enter JWT Bearer token **_only_**",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "security": [
+    {
+      "apiKey": []
+    }
+  ]
+}

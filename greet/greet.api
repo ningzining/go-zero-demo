@@ -1,8 +1,8 @@
-type Request {
-	Name string `path:"name,options=you|me"`
+type HelloReq {
+	Name string `form:"name"`
 }
 
-type Response {
+type HelloResp {
 	Message string `json:"message"`
 }
 type GetQrCodeReq {
@@ -31,8 +31,8 @@ type CheckQrCodeReq {
 type CheckQrCodeResp {
 }
 service greet-api {
-	@handler GreetHandler
-	get /from/:name(Request) returns (Response)
+	@handler Hello
+	get /hello(HelloReq) returns (HelloResp)
 	@handler GetQrCode // 获取二维码
 	get /qrcode/get(GetQrCodeReq) returns (GetQrCodeResp)
 	@handler ScanQrCode // 扫描二维码
